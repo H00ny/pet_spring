@@ -19,12 +19,19 @@ public class RegistrationController {
     UserRep userRep;
 
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Model model) {
+        model.addAttribute("message", "");
+
         return "registration";
     }
     
     @PostMapping(value="/registration")
     public String addUser(User user, Model model) {
+        if(user.getUsername() == "" || user.getPassword() == "") {
+            model.addAttribute("message", "Some field is empty.");
+            return "registration";
+        }
+
         User userFromDb = userRep.findByUsername(user.getUsername());
 
         if(userFromDb != null) {
@@ -35,7 +42,7 @@ public class RegistrationController {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRep.save(user);
-        
+
         return "redirect:/login";
     }
 }

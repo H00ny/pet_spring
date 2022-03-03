@@ -6,10 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import com.example.bookshop.entity.Role;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter @Setter
+@Data
 public class UserDto {
     @NotNull
     private String username;

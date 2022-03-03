@@ -3,6 +3,6 @@
 
 <@c.page>
 <h2><button type="submit"><a href="/login">Back</a></button>Add new user</h2>
-<#if message??><p>${message}</#if>
+<p>${message}
 <@l.login "/registration" />
 </@c.page>

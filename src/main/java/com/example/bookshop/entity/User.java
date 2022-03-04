@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +38,6 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name="", unique = true, nullable = false)
-    @NotBlank
     private String username;
 
     @Column(name="", nullable = false)

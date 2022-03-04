@@ -5,7 +5,6 @@ import java.util.Objects;
 import com.example.bookshop.dto.UserDto;
 import com.example.bookshop.service.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,31 +19,29 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    private String msg = "message";
-    private String reg = "registration";
+    private String message = "message";
+    private String registration = "registration";
 
     @GetMapping
     public String registration(Model model) {
-        model.addAttribute(msg, "");
+        model.addAttribute(message, "");
 
-        return reg;
+        return registration;
     }
     
     @PostMapping
     public String addUser(UserDto userDto, Model model) {
-        if(Objects.equals(userDto.getUsername(), "") || Objects.equals(userDto.getPassword(), "")) {
-            model.addAttribute(msg, "Some field is empty.");
-            return reg;
-        }
+        // if(Objects.equals(userDto.getUsername(), "") || Objects.equals(userDto.getPassword(), "")) {
+        //     model.addAttribute(message, "Some field is empty.");
+        //     return registration;
+        // }
 
-        if(userService.findByUsername(userDto) != null) {
-            model.addAttribute(msg, "Account exists.");
-            return reg;
-        }
+        // if(userService.findByUsername(userDto) != null) {
+        //     model.addAttribute(message, "Account exists.");
+        //     return registration;
+        // }
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 

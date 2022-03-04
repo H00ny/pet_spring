@@ -37,7 +37,8 @@ public class MainController {
         bookService.save(bookDto);
 
         model.addAttribute(books, bookService.findAll());
-        
+        model.addAttribute("filter", "");
+
         return "main";
     }
 }

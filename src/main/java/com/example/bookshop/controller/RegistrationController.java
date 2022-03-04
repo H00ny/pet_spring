@@ -1,8 +1,10 @@
 package com.example.bookshop.controller;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import com.example.bookshop.dto.UserDto;
+import com.example.bookshop.entity.Role;
 import com.example.bookshop.service.UserService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,17 +35,19 @@ public class RegistrationController {
     
     @PostMapping
     public String addUser(UserDto userDto, Model model) {
-        // if(Objects.equals(userDto.getUsername(), "") || Objects.equals(userDto.getPassword(), "")) {
-        //     model.addAttribute(message, "Some field is empty.");
-        //     return registration;
-        // }
+        if(Objects.equals(userDto.getUsername(), "") || Objects.equals(userDto.getPassword(), "")) {
+            model.addAttribute(message, "Some field is empty.");
+            return registration;
+        }
 
-        // if(userService.findByUsername(userDto) != null) {
-        //     model.addAttribute(message, "Account exists.");
-        //     return registration;
-        // }
+        if(userService.findByUsername(userDto) != null) {
+            model.addAttribute(message, "Account exists.");
+            return registration;
+        }
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userDto.setActive(true);
+        userDto.setRoles(Collections.singleton(Role.USER));
 
         userService.save(userDto);
 

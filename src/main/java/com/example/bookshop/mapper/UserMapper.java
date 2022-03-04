@@ -5,8 +5,7 @@ import com.example.bookshop.entity.User;
 
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserMapper {
-    UserDto userToUserDto(User user);
     User userDtoToUser(UserDto userDto);
 }

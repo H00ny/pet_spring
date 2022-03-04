@@ -6,6 +6,5 @@ import java.util.List;
 import com.example.bookshop.entity.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    List<Book> findByAuthor(String author);
     List<Book> findByName(String name);
 }

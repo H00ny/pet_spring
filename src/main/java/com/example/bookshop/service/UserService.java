@@ -1,10 +1,8 @@
 package com.example.bookshop.service;
 
-import java.util.Collections;
-
 import com.example.bookshop.dto.UserDto;
-import com.example.bookshop.entity.Role;
 import com.example.bookshop.entity.User;
+import com.example.bookshop.mapper.UserMapper;
 import com.example.bookshop.repository.UserRepository;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,13 +28,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(UserDto userDto) {
-        User user = new User();
-        
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-
-        userRepository.save(user);
+        userRepository.save(userMapper.userDtoToUser(userDto));
     }
 }

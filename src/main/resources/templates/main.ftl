@@ -7,26 +7,36 @@
 </div>
 
 <div>
-    <form method="post">
+    <form method="POST">
         <input type="text" name="name" placeholder="Name of the book" />
         <input type="text" name="author" placeholder="Author" />
         <input type="text" name="count" placeholder="Count" />
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button type="submit">Add to catalog</button>
+        <button type="submit">add</button>
     </form>
 </div>
 
-<div><strong>Catalog:</strong></div>
-<#list books as book>
 <div>
-    <b>Name: [${book.name}]</b>
-    <b>Author: [${book.author}]</b>
-    <b>Count: [${book.count}]</b>
-    <b><a href>[+] Buy</a></b>
+    <form method="GET">
+        <input type="text" name="filter" placeholder="Name.." value=${filter}>
+        <button type="submit">find</button>
+    </form>
 </div>
-</div>
-<#else>
-Catalog is empty
-</#list>
+
+<table>
+    <th>
+        <td>[name]</td>
+        <td>[author]</td>
+        <td>[count]</td>
+    </th>
+    <#list books as book>
+    <tr>
+        <td></td>
+        <td>${book.name}</td>
+        <td>${book.author}</td>
+        <td>${book.count}</td>
+    </tr>
+    </#list>
+</table>
 
 </@c.page>

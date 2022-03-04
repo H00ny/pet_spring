@@ -1,21 +1,17 @@
 package com.example.bookshop.dto;
 
-import java.util.Set;
-
 import javax.validation.constraints.NotNull;
-
-import com.example.bookshop.entity.Role;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
 @Data
 public class UserDto {
     @NotNull
+    @Size(min = 4, max = 64)
     private String username;
 
     @NotNull
+    @Size(min = 4, max = 32)
     private String password;
-
-    @NotNull
-    private Set<Role> roles;
 }

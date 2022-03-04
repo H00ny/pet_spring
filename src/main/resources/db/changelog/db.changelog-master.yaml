@@ -28,7 +28,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: username
-                  type: varchar(50)
+                  type: varchar(64)
                   constraints:
                     unique: true
                     nullable: false
@@ -45,7 +45,7 @@ databaseChangeLog:
                     updatable: false
               - column:
                   name: roles
-                  type: varchar(10)
+                  type: varchar(8)
                   constraints:
                     nullable: false
         - createTable:

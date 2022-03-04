@@ -1,13 +1,10 @@
 package com.example.bookshop.controller;
 
-import java.util.Collections;
 import java.util.Objects;
 
 import com.example.bookshop.dto.UserDto;
-import com.example.bookshop.entity.Role;
 import com.example.bookshop.service.UserService;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,34 +17,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/registration")
 @RequiredArgsConstructor
 public class RegistrationController {
+    private static final String MESSAGE = "message";
+    private static final String REGISTRATION = "registration";
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-
-    private String message = "message";
-    private String registration = "registration";
 
     @GetMapping
     public String registration(Model model) {
-        model.addAttribute(message, "");
+        model.addAttribute(MESSAGE, "");
 
-        return registration;
+        return REGISTRATION;
     }
     
     @PostMapping
     public String addUser(UserDto userDto, Model model) {
         if(Objects.equals(userDto.getUsername(), "") || Objects.equals(userDto.getPassword(), "")) {
-            model.addAttribute(message, "Some field is empty.");
-            return registration;
+            model.addAttribute(MESSAGE, "Some field is empty.");
+            return REGISTRATION;
         }
 
-        if(userService.findByUsername(userDto) != null) {
-            model.addAttribute(message, "Account exists.");
-            return registration;
+        if(userService.findByUsername(userDto.getUsername()).isPresent()) {
+            model.addAttribute(MESSAGE, "Account exists.");
+            return REGISTRATION;
         }
 
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userDto.setActive(true);
-        userDto.setRoles(Collections.singleton(Role.USER));
 
         userService.save(userDto);
 

@@ -1,6 +1,7 @@
 package com.example.bookshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.bookshop.dto.BookDto;
 import com.example.bookshop.entity.Book;
@@ -25,7 +26,8 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void save(BookDto bookDto) {
-        bookRepository.save(bookMapper.bookDtoToBook(bookDto));
+    public Optional<Book> save(BookDto bookDto) {
+        return Optional
+                .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)));
     }
 }

@@ -41,6 +41,11 @@
                 <constraints  nullable="false"/>  
             </column> 
         </createTable>
+        <rollback>
+            <dropTable tableName="user_role"/>
+            <dropTable tableName="usr"/>
+            <dropTable tableName="book"/>
+        </rollback>
     </changeSet>  
 
 </databaseChangeLog>

@@ -16,16 +16,18 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/main")
 @RequiredArgsConstructor
 public class MainController {
+    private static final String BOOKS = "books";
     private final BookService bookService;
-    private String books = "books";
-
+    
     @GetMapping
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) 
     {   
-        if(filter != null && !filter.isEmpty())
-            model.addAttribute(books, bookService.findByName(filter));
-        else
-            model.addAttribute(books, bookService.findAll());
+        if(filter != null && !filter.isEmpty()) {
+            model.addAttribute(BOOKS, bookService.findByName(filter));
+        }
+        else {
+            model.addAttribute(BOOKS, bookService.findAll());
+        }
 
         model.addAttribute("filter", filter);
 
@@ -36,7 +38,7 @@ public class MainController {
     public String add(BookDto bookDto, Model model) {
         bookService.save(bookDto);
 
-        model.addAttribute(books, bookService.findAll());
+        model.addAttribute(BOOKS, bookService.findAll());
         model.addAttribute("filter", "");
 
         return "main";

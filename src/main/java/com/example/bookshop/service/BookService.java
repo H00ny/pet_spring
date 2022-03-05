@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.bookshop.dto.BookDto;
+import com.example.bookshop.filter.BookFilter;
 import com.example.bookshop.mapper.BookMapper;
-import com.example.bookshop.repository.BookRepository;
+import com.example.bookshop.repository.book.BookRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,11 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     
-    public List<BookDto> findByName(String name) {
+    public List<BookDto> findByFilter(BookFilter bookFilter) {
         return bookRepository
-                .findByName(name)
+                .findByFilter(bookFilter)
                 .stream()
-                    .map(bookMapper::booktoBookDto)
+                    .map(bookMapper::bookToBookDto)
                     .toList();
     }
 
@@ -29,13 +30,13 @@ public class BookService {
         return bookRepository
                 .findAll()
                 .stream()
-                    .map(bookMapper::booktoBookDto)
+                    .map(bookMapper::bookToBookDto)
                     .toList();
     }
 
     public Optional<BookDto> save(BookDto bookDto) {
         return Optional
                 .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)))
-                .map(bookMapper::booktoBookDto);
+                .map(bookMapper::bookToBookDto);
     }
 }

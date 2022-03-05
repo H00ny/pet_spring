@@ -18,6 +18,7 @@
 
 <div>
     <form method="GET">
+        <label>${filter}</label>
         <input type="text" name="filter" placeholder="Name.." value=${filter}>
         <button type="submit">find</button>
     </form>

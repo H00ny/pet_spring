@@ -5,8 +5,10 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class BookDto {
     @NotNull
     @Size(min = 1, max = 128)

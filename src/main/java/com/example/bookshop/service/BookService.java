@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.bookshop.dto.BookDto;
-import com.example.bookshop.entity.Book;
 import com.example.bookshop.mapper.BookMapper;
 import com.example.bookshop.repository.BookRepository;
 
@@ -18,16 +17,25 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     
-    public List<Book> findByName(String name) {
-        return bookRepository.findByName(name);
+    public List<BookDto> findByName(String name) {
+        return bookRepository
+                .findByName(name)
+                .stream()
+                    .map(bookMapper::booktoBookDto)
+                    .toList();
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDto> findAll() {
+        return bookRepository
+                .findAll()
+                .stream()
+                    .map(bookMapper::booktoBookDto)
+                    .toList();
     }
 
-    public Optional<Book> save(BookDto bookDto) {
+    public Optional<BookDto> save(BookDto bookDto) {
         return Optional
-                .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)));
+                .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)))
+                .map(bookMapper::booktoBookDto);
     }
 }

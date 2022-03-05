@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping("/book")
 @RequiredArgsConstructor
-public class MainController {
+public class BookController {
     private static final String BOOKS = "books";
     private final BookService bookService;
     
     @GetMapping
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) 
+    public String book(@RequestParam(required = false, defaultValue = "") String filter, Model model) 
     {   
         if(filter != null && !filter.isEmpty()) {
             model.addAttribute(BOOKS, bookService.findByName(filter));
@@ -31,7 +31,7 @@ public class MainController {
 
         model.addAttribute("filter", filter);
 
-        return "main";
+        return "book";
     }
 
     @PostMapping
@@ -41,6 +41,6 @@ public class MainController {
         model.addAttribute(BOOKS, bookService.findAll());
         model.addAttribute("filter", "");
 
-        return "main";
+        return "book";
     }
 }

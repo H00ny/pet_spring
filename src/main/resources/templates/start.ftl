@@ -2,5 +2,6 @@
 
 <@c.page>
 <h1>Book Shop</h1>
-<a href="/main">Catalog</a>
+<a href="/book">View</a>
+<a href="/rest/book">Rest</a>
 </@c.page>

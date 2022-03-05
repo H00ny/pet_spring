@@ -22,8 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
-
+    public final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,9 +37,11 @@ public class UserService implements UserDetailsService {
 
     public void save(UserDto userDto) {
         User user = userMapper.userDtoToUser(userDto);
+        
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         userRepository.save(user);
     }
 }

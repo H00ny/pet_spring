@@ -1,10 +1,8 @@
 package com.example.bookshop.service;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import com.example.bookshop.dto.UserDto;
-import com.example.bookshop.entity.Role;
 import com.example.bookshop.entity.User;
 import com.example.bookshop.mapper.UserMapper;
 import com.example.bookshop.repository.UserRepository;
@@ -37,10 +35,6 @@ public class UserService implements UserDetailsService {
 
     public void save(UserDto userDto) {
         User user = userMapper.userDtoToUser(userDto);
-        
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userRepository.save(user);
     }

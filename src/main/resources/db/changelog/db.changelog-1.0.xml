@@ -4,10 +4,11 @@
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
     <changeSet  id="1"  author="stl">  
         <createTable  tableName="usr">  
             <column  name="id"  type="bigint"  autoIncrement="true">  
-                <constraints  primaryKey="true"  nullable="false"/>  
+                <constraints  primaryKey="true" nullable="false"/>  
             </column>  
             <column  name="active"  type="boolean" defaultValue="false">  
                 <constraints nullable="false"/>  
@@ -18,15 +19,18 @@
             <column  name="username"  type="varchar(64)">  
                 <constraints  unique="true"  nullable="false"/>  
             </column> 
-        </createTable>  
+        </createTable>
+
         <createTable  tableName="user_role">  
-            <column  name="user_id"  type="bigint"  autoIncrement="true">  
-                <constraints  primaryKey="true"  nullable="false"/>  
+            <column  name="user_id"  type="bigint" >  
+                <constraints foreignKeyName="user_role_id_usr_id" references="usr(id)"/>  
+                
             </column>  
             <column  name="roles"  type="varchar(8)">  
                 <constraints  nullable="false"/>  
             </column> 
         </createTable>
+
         <createTable  tableName="book">  
             <column  name="id"  type="bigint"  autoIncrement="true">  
                 <constraints  primaryKey="true"  nullable="false"/>  
@@ -41,11 +45,13 @@
                 <constraints  nullable="false"/>  
             </column> 
         </createTable>
+
         <rollback>
             <dropTable tableName="user_role"/>
             <dropTable tableName="usr"/>
             <dropTable tableName="book"/>
         </rollback>
+
     </changeSet>  
 
 </databaseChangeLog>

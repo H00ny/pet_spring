@@ -4,7 +4,8 @@
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet  id="2"  author="stl">  
+    <changeSet  id="2_insert_records"  author="stl">  
+        <!-- USERS -->
         <insert tableName="usr">  
             <column  name="active"  value="true"/>  
             <column  name="password"  value="$2a$10$tA.HgVVTcR7J5rn515LA2OGobd0tGRLRAzIROD8z0fPZJMG/n2vBO"/>  
@@ -12,8 +13,50 @@
         </insert> 
         <insert tableName="user_role">
             <column name="user_id" valueSequenceCurrent="usr_id_seq"/>
+            <column  name="roles"  value="ADMIN"/>  
+        </insert> 
+
+        <insert tableName="usr">  
+            <column  name="active"  value="true"/>  
+            <column  name="password"  value="$2y$10$hQTS5xOWfG4U1BKxLQdz2uQGDIEd7QJVPcWBH8sSDuF2WNB.fIGZG"/>  
+            <column  name="username"  value="guest"/>  
+        </insert> 
+        <insert tableName="user_role">
+            <column name="user_id" valueSequenceCurrent="usr_id_seq"/>
             <column  name="roles"  value="USER"/>  
         </insert> 
-    </changeSet>  
 
+
+        <!-- BOOKS -->
+        <insert tableName="book">  
+            <column  name="name"  value="name1"/>  
+            <column  name="author"  value="author1"/>  
+            <column  name="count"  value="2"/>  
+        </insert> 
+
+        <insert tableName="book">  
+            <column  name="name"  value="name2"/>  
+            <column  name="author"  value="author4"/>  
+            <column  name="count"  value="3"/>  
+        </insert> 
+
+        <insert tableName="book">  
+            <column  name="name"  value="name3"/>  
+            <column  name="author"  value="author2"/>  
+            <column  name="count"  value="7"/>  
+        </insert> 
+
+        <insert tableName="book">  
+            <column  name="name"  value="name2"/>  
+            <column  name="author"  value="author1"/>  
+            <column  name="count"  value="12"/>  
+        </insert> 
+
+        <insert tableName="book">  
+            <column  name="name"  value="name15"/>  
+            <column  name="author"  value="author1"/>  
+            <column  name="count"  value="3"/>  
+        </insert> 
+
+    </changeSet>  
 </databaseChangeLog>

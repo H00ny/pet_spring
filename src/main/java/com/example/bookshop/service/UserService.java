@@ -1,6 +1,8 @@
 package com.example.bookshop.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.bookshop.dto.UserDto;
 import com.example.bookshop.entity.User;
@@ -37,5 +39,11 @@ public class UserService implements UserDetailsService {
         User user = userMapper.userDtoToUser(userDto);
 
         userRepository.save(user);
+    }
+    public List<User> findAll() {
+        List<User> users = userRepository.findAll();
+        users.forEach(user -> user.setPassword(""));
+
+        return users;
     }
 }

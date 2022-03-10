@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    
+
     public List<BookDto> findByFilter(BookFilter bookFilter) {
         return bookRepository
                 .findByFilter(bookFilter)
@@ -34,9 +34,9 @@ public class BookService {
                     .toList();
     }
 
-    public Optional<BookDto> save(BookDto bookDto) {
-        return Optional
-                .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)))
+    public void save(BookDto bookDto) {
+        Optional
+                .of(bookRepository.save(bookMapper.bookDtoToBook(bookDto)))
                 .map(bookMapper::bookToBookDto);
     }
 }

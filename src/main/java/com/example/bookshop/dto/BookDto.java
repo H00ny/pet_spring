@@ -8,15 +8,8 @@ import lombok.Data;
 
 @Data
 public class BookDto {
-    @NotNull
-    @Size(min = 1, max = 128)
+    private Long id;
     private String name;
-
-    @NotNull
-    @Size(min = 1, max = 32)
     private String author;
-
-    @NotNull
-    @PositiveOrZero
     private Integer count;
 }

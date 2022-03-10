@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/rest/book")
+@RequiredArgsConstructor
 public class BookRestController {
     private final BookService bookService;
     

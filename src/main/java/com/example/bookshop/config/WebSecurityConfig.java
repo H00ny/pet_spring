@@ -10,31 +10,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	private final UserDetailsService userService;
-	public final PasswordEncoder passwordEncoder;
+  private final UserDetailsService userService;
+  public final PasswordEncoder passwordEncoder;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.antMatchers("/", "/registration").permitAll()
-				.anyRequest().authenticated()
-			.and()
-			    .formLogin()
-				.loginPage("/login")
-				.permitAll()
-			.and()
-			    .logout()
-				.permitAll();
-	}
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        .antMatchers("/", "/registration")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin()
+        .loginPage("/login")
+        .permitAll()
+        .and()
+        .logout()
+        .permitAll();
+  }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService)
-				.passwordEncoder(passwordEncoder);
-	}
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+  }
 }

@@ -13,24 +13,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="book")
-@Getter @Setter @NoArgsConstructor
+@Table(name = "book")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Book {
-    @Id 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(
-        name = "",
-        sequenceName = "",
-        allocationSize = 1)
-    @Column(name="", updatable = false, nullable = false)
-    private Long id;
+  @Id
+  @Column(name = "", updatable = false, nullable = false)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
+  private Long id;
 
-    @Column(name="", nullable = false)
-    private String name;
+  @Column(name = "", nullable = false)
+  private String name;
 
-    @Column(name="", nullable = false)
-    private String author;
+  @Column(name = "", nullable = false)
+  private String author;
 
-    @Column(name="", nullable = false)
-    private Integer count;
+  @Column(name = "", nullable = false)
+  private Integer count;
 }

@@ -6,5 +6,5 @@ import com.example.bookshop.entity.Book;
 import com.example.bookshop.filter.BookFilter;
 
 public interface CustomBookRepository {
-    List<Book> findByFilter(BookFilter filter);
+  List<Book> findByFilter(BookFilter filter);
 }

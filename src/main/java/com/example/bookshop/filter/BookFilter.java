@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookFilter {
-    private String name;
-    private String author;
-    private Integer count;
+  private Long id;
+  private String name;
+  private String author;
+  private Integer count;
 }

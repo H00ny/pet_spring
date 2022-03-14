@@ -12,35 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/book")
 @RequiredArgsConstructor
 public class BookController {
-    private static final String BOOKS = "books";
-    private final BookService bookService;
-    
-    @GetMapping
-    public String book(BookFilter filter, Model model) 
-    {   
-        if(filter != null) {
-            model.addAttribute(BOOKS, bookService.findByFilter(filter));
-        }
-        else {
-            model.addAttribute(BOOKS, bookService.findAll());
-        }
+  private static final String BOOKS = "books";
+  private final BookService bookService;
 
-        model.addAttribute("filter", filter);
+  @GetMapping
+  public String getAllBook(BookFilter filter, Model model) {
+    Optional.ofNullable(filter)
+        .ifPresentOrElse(
+            existFilter -> model.addAttribute(BOOKS, bookService.findByFilter(existFilter)),
+            () -> model.addAttribute(BOOKS, bookService.findAll()));
 
-        return "book";
-    }
+    model.addAttribute("filter", filter);
 
-    @PostMapping
-    public String add(BookDto bookDto, Model model) {
-        bookService.save(bookDto);
+    return "book";
+  }
 
-        model.addAttribute(BOOKS, bookService.findAll());
-        model.addAttribute("filter", "");
+  @PostMapping
+  public String savedBook(BookDto bookDto, Model model) {
+    bookService.saveBook(bookDto);
 
-        return "book";
-    }
+    model.addAttribute(BOOKS, bookService.findAll());
+    model.addAttribute("filter", "");
+
+    return "book";
+  }
 }

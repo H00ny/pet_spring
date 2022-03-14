@@ -10,7 +10,9 @@ VALUES
 ( 
     (SELECT Id FROM usr WHERE username='admin'),
     'USER'
-)
+);
 
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
+DROP SCHEMA dict CASCADE;
+CREATE SCHEMA dict;

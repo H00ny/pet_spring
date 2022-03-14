@@ -15,19 +15,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/registration")
 @RequiredArgsConstructor
 public class RegistrationController {
-    private final UserService userService;
+  private final UserService userService;
 
-    @GetMapping
-    public String registration(Model model) {
-        model.addAttribute("message", "");
+  @GetMapping
+  public String registration() {
+    return "registration";
+  }
 
-        return "registration";
-    }
-    
-    @PostMapping
-    public String addUser(UserDto userDto) {
-        userService.save(userDto);
-
-        return "redirect:/login";
-    }
+  @PostMapping
+  public String savedUser(UserDto userDto, Model model) {
+    userService.saveUser(userDto);
+    return "redirect:/login";
+  }
 }

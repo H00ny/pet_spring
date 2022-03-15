@@ -1,22 +1,23 @@
-package com.example.bookshop.controller.rest;
+package com.example.bookshop.controller;
 
-import com.example.bookshop.entity.User;
 import com.example.bookshop.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("/rest/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
   private final UserService userService;
 
   @GetMapping
-  public List<User> findAll() {
-    return userService.findAll();
+  public String getAllBook(Model model) {
+    model.addAttribute("users", userService.findAll());
+    return "users";
   }
 }

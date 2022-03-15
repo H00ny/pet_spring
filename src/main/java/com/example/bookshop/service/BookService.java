@@ -34,7 +34,7 @@ public class BookService {
                     .toList();
     }
 
-    public Optional<BookDto> save(BookDto bookDto) {
+    public Optional<BookDto> saveBook(BookDto bookDto) {
         return Optional
                 .ofNullable(bookRepository.save(bookMapper.bookDtoToBook(bookDto)))
                 .map(bookMapper::bookToBookDto);

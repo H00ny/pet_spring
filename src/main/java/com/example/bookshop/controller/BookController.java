@@ -36,7 +36,6 @@ public class BookController {
   @PostMapping
   public String savedBook(BookDto bookDto, Model model) {
     bookService.saveBook(bookDto);
-    
     model.addAttribute(BOOKS, bookService.findAll());
     model.addAttribute("filter", "");
 

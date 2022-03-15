@@ -1,5 +1,6 @@
 package com.example.bookshop.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.bookshop.dto.UserDto;
@@ -18,24 +19,28 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    public final PasswordEncoder passwordEncoder;
+  private final UserRepository userRepository;
+  private final UserMapper userMapper;
+  public final PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
-    }
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return userRepository.findByUsername(username);
+  }
 
-    public Optional<UserDto> findByUsername(String userName) {
-        return Optional
-            .ofNullable(userRepository.findByUsername(userName))
-            .map(userMapper::userToUserDto);
-    }
+  public List<User> findAll() {
+    List<User> users = userRepository.findAll();
+    users.forEach(user -> user.setPassword(""));
 
-    public void save(UserDto userDto) {
-        User user = userMapper.userDtoToUser(userDto);
+    return users;
+  }
 
-        userRepository.save(user);
-    }
+  public void saveUser(UserDto userDto) {
+    userRepository.save(userMapper.userDtoToUser(userDto));
+  }
+
+  public Optional<UserDto> findByUsername(String userName) {
+    return Optional.ofNullable(userRepository.findByUsername(userName))
+        .map(userMapper::userToUserDto);
+  }
 }

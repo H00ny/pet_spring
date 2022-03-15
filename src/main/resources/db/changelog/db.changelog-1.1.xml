@@ -22,7 +22,7 @@
             <column  name="username"  value="guest"/>  
         </insert> 
         <insert tableName="user_role">
-            <column name="user_id" valueSequenceCurrent="usr_id_seq"/>
+            <column   name="user_id" valueSequenceCurrent="usr_id_seq"/>
             <column  name="roles"  value="USER"/>  
         </insert> 
 

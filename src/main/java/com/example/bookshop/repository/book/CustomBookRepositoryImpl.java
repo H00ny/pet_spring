@@ -1,7 +1,7 @@
 package com.example.bookshop.repository.book;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,40 +14,22 @@ import com.example.bookshop.filter.BookFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CustomBookRepositoryImpl implements CustomBookRepository {
+  @Autowired private EntityManager em;
 
-    @Autowired
-    private EntityManager em;
+  @Override
+  public List<Book> findByFilter(BookFilter filter) {
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Book> cq = cb.createQuery(Book.class);
+    Root<Book> root = cq.from(Book.class);
+    CriteriaQuery<Book> select = cq.select(root);
 
-    @Override
-    public List<Book> findByFilter(BookFilter filter) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Book> cq = cb.createQuery(Book.class);
-        Root<Book> root = cq.from(Book.class);
+    Optional.ofNullable(filter.getCount())
+        .ifPresent(count -> select.where(cb.equal(root.get("count"), filter.getCount())));
+    Optional.ofNullable(filter.getAuthor())
+        .ifPresent(author -> select.where(cb.equal(root.get("author"), filter.getAuthor())));
+    Optional.ofNullable(filter.getName())
+        .ifPresent(name -> select.where(cb.equal(root.get("name"), filter.getName())));
 
-        List<Book> result = new ArrayList<>();
-
-        if(filter.getCount() == null && filter.getAuthor() == null && filter.getName() == null) {
-            cq.select(root);
-            result.addAll(em.createQuery(cq).getResultList());
-            return result;
-        }
-
-        if(filter.getCount() != null) {
-            cq.select(root).where(cb.equal(root.get("count"), filter.getCount()));
-            result.addAll(em.createQuery(cq).getResultList());
-        }
-        if(filter.getAuthor() != null) {
-            cq.select(root).where(cb.equal(root.get("author"), filter.getAuthor()));
-            result.addAll(em.createQuery(cq).getResultList());
-        }
-        if(filter.getName() != null) {
-            cq.select(root).where(cb.equal(root.get("name"), filter.getName()));
-            result.addAll(em.createQuery(cq).getResultList());
-        }
-
-        //Optional.ofNullable(filter.getCount()).ifPresent(cq.where(cb.equal(root.get("count"), filter.getCount())));
-
-        return result;
-    }
-    
+    return em.createQuery(select).getResultList();
+  }
 }

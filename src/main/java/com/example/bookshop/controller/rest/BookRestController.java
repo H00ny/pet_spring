@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/rest/book")
+@RequiredArgsConstructor
 public class BookRestController {
-    private final BookService bookService;
-    
-    @GetMapping()
-    public List<BookDto> bookFilter(BookFilter bookFilter) {    
-        return bookService.findByFilter(bookFilter);
-    }
+  private final BookService bookService;
 
-    @PostMapping
-    public BookDto add(@RequestBody BookDto bookDto) {
-        bookService.save(bookDto);
+  @GetMapping
+  public List<BookDto> getAllBook() {
+    return bookService.findAll();
+  }
 
-        return bookDto;
-    }
+  @PostMapping
+  public BookDto savedBook(@RequestBody BookDto bookDto) {
+    bookService.saveBook(bookDto);
+    return bookDto;
+  }
+
+  @PostMapping("/filter")
+  public List<BookDto> findWithFilter(BookFilter bookFilter) {
+    return bookService.findByFilter(bookFilter);
+  }
 }
